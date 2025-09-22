@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pac-Man Highscore Tournament</title>
+  <style>
+    @media (max-width: 700px) {
+      .leaderboard-container {
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+      }
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+      }
+      .leaderboard {
+        width: 99vw;
+        min-width: 600px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        display: block;
+        overflow-x: auto;
+      }
+      .leaderboard th, .leaderboard td {
+        padding: 8px 2px;
+        font-size: 0.95rem;
+        white-space: nowrap;
+      }
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0d0d1a 60%, #1a1a33 100%);
+      color: #f5c518;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .leaderboard-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 20, 40, 0.98);
+    }
+    h1 {
+      margin-bottom: 40px;
+      font-size: 3rem;
+      color: #f5c518;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 10px #000;
+    }
+    .leaderboard {
+  width: 750px;
+  max-width: 95vw;
+      border-collapse: collapse;
+      background: #181830;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px #0008;
+    }
+    .leaderboard th, .leaderboard td {
+      padding: 22px 18px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .leaderboard th {
+      background: #23234a;
+      color: #f5c518;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+    }
+    .leaderboard tr.gold {
+      background: linear-gradient(90deg, #ffd700 80%, #fffbe6 100%);
+      color: #222;
+      font-weight: bold;
+      font-size: 1.7rem;
+    }
+    .leaderboard tr.silver {
+      background: linear-gradient(90deg, #c0c0c0 80%, #f8f8f8 100%);
+      color: #222;
+      font-weight: bold;
+    }
+    .leaderboard tr.bronze {
+      background: linear-gradient(90deg, #cd7f32 80%, #ffe5c2 100%);
+      color: #222;
+      font-weight: bold;
+    }
+    .leaderboard tr {
+      transition: background 0.2s;
+    }
+    .leaderboard tr:not(.gold):not(.silver):not(.bronze):hover {
+      background: #23234a;
+    }
+  </style>
+</head>
+<body>
+  <div class="leaderboard-container">
+    <h1>🏆 PAC-MAN LEADERBOARD 🏆</h1>
+    <table class="leaderboard">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Score</th>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>House</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody">
+        <!-- Leaderboard rows will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Example leaderboard data
+    const leaderboard = [
+      { name: 'Mr. Peaks', score: 2590, grade: 'Teacher', house: '()' },
+      { name: 'Mrs. Malik', score: 1790, grade: 'Teacher', house: '()' },
+      { name: 'Ms. Betancourt', score: 1660, grade: 'Teacher', house: '()' },
+      { name: 'Test Subject 1', score: 9500, grade: 'Test', house: 'Test' },
+      { name: 'Test Subject 2', score: 9000, grade: 'Test', house: 'Test' },
+      { name: 'Test Subject 3', score: 8500, grade: 'Test', house: 'Test' },
+      { name: 'Test Subject 4', score: 8000, grade: 'Test+', house: 'Test' },
+      { name: 'Test Subject 5', score: 7800, grade: 'Test', house: 'Test' },
+      { name: 'Test Subject 6', score: 7500, grade: 'Test', house: 'Test' },
+      { name: 'Test Subject 7', score: 7000, grade: 'Test', house: 'Test' }
+    ];
+
+    function renderLeaderboard() {
+      const tbody = document.getElementById('leaderboardBody');
+      tbody.innerHTML = '';
+      leaderboard.slice(0, 10).forEach((player, idx) => {
+        let cls = '';
+        if (idx === 0) cls = 'gold';
+        else if (idx === 1) cls = 'silver';
+        else if (idx === 2) cls = 'bronze';
+        tbody.innerHTML += `
+          <tr class="${cls}">
+            <td>${idx + 1}</td>
+            <td>${player.score}</td>
+            <td>${player.name}</td>
+            <td>${player.grade || ''}</td>
+            <td>${player.house || ''}</td>
+          </tr>
+        `;
+      });
+    }
+    renderLeaderboard();
+  </script>
+</body>
+</html>
